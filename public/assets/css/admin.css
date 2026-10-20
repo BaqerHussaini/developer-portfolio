@@ -78,7 +78,17 @@ p { margin: 0 0 1rem; }
 
 .side-nav a:hover { background: var(--panel-2); color: var(--text); }
 .side-nav a.active { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--text); }
-.side-nav .ico { width: 18px; text-align: center; opacity: .85; }
+.side-nav .ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: .85;
+}
+
+.side-nav .ico svg { width: 16px; height: 16px; fill: currentColor; }
 
 .pill {
     margin-left: auto;

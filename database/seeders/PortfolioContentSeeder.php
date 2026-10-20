@@ -28,6 +28,7 @@ class PortfolioContentSeeder extends Seeder
                 'tags' => ['React', 'Node.js', 'Dashboard'],
                 'live_url' => 'https://example.com/taskflow',
                 'repo_url' => 'https://github.com/example/taskflow',
+                'is_featured' => true,
                 'sort_order' => 1,
             ],
             [
@@ -37,6 +38,7 @@ class PortfolioContentSeeder extends Seeder
                 'tags' => ['UI Design', 'Storefront', 'UX'],
                 'live_url' => 'https://example.com/cartora',
                 'repo_url' => 'https://github.com/example/cartora',
+                'is_featured' => true,
                 'sort_order' => 2,
             ],
             [
@@ -46,6 +48,7 @@ class PortfolioContentSeeder extends Seeder
                 'tags' => ['Analytics', 'Data', 'SaaS'],
                 'live_url' => 'https://example.com/insighthub',
                 'repo_url' => 'https://github.com/example/insighthub',
+                'is_featured' => false,
                 'sort_order' => 3,
             ],
         ];

@@ -68,5 +68,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-head reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">{{ $projects['eyebrow'] }}</p>
+                    <h2>{{ $projects['heading'] }}</h2>
+                </div>
+
+                <a class="btn btn-ghost" href="{{ route('projects') }}">
+                    Explore all projects
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5.5 20 12l-6.5 6.5-1.4-1.4 4.1-4.1H4v-2h12.2l-4.1-4.1 1.4-1.4Z"/></svg>
+                </a>
+            </div>
+
+            @if ($projects['featured']->isNotEmpty())
+                <div class="projects-grid">
+                    @foreach ($projects['featured'] as $project)
+                        @include('site.partials.project-card', ['project' => $project])
+                    @endforeach
+                </div>
+            @else
+                <p class="empty-note">No featured projects yet.</p>
+            @endif
+        </div>
     </section>
 @endsection

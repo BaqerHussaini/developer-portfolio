@@ -47,6 +47,28 @@ class PortfolioSiteTest extends TestCase
             ->assertSee('Kabul, Afghanistan');
     }
 
+    public function test_home_page_shows_only_featured_projects_with_explore_link(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('TaskFlow Pro')
+            ->assertSee('Cartora')
+            ->assertDontSee('InsightHub')
+            ->assertSee('Explore all projects')
+            ->assertSee(route('projects'), false);
+    }
+
+    public function test_home_page_falls_back_to_recent_projects_when_none_are_featured(): void
+    {
+        Project::query()->update(['is_featured' => false]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('TaskFlow Pro')
+            ->assertSee('Cartora')
+            ->assertSee('InsightHub');
+    }
+
     public function test_navigation_links_point_to_each_page(): void
     {
         $this->get('/')

@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Models\Experience;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Models\Skill;
@@ -46,6 +47,7 @@ class Portfolio
                 'eyebrow' => $value('projects_eyebrow'),
                 'heading' => $value('projects_heading'),
                 'items' => Project::published()->ordered()->get(),
+                'featured' => static::homeProjects(),
             ],
 
             'experience' => [
@@ -78,6 +80,19 @@ class Portfolio
                 )),
             ],
         ];
+    }
+
+    /**
+     * Projects selected for the home page; falls back to the first published
+     * projects when the admin has not highlighted any yet.
+     */
+    private static function homeProjects(): Collection
+    {
+        $featured = Project::published()->featured()->ordered()->limit(3)->get();
+
+        return $featured->isNotEmpty()
+            ? $featured
+            : Project::published()->ordered()->limit(3)->get();
     }
 
     /**

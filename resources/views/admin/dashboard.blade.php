@@ -23,19 +23,21 @@
             <a class="btn btn-outline btn-sm spacer" href="{{ route('admin.messages.index') }}">Open inbox</a>
         </div>
 
-        @forelse ($latestMessages as $message)
-            <div class="message-row {{ $message->is_read ? '' : 'unread' }}">
-                <header>
-                    <strong>{{ $message->name }}</strong>
-                    <span class="muted">{{ $message->email }}</span>
-                    @unless ($message->is_read)<span class="badge unread">New</span>@endunless
-                    <time>{{ $message->created_at->diffForHumans() }}</time>
-                </header>
-                <p>{{ str($message->subject ?: 'No subject') }} — {{ str($message->body)->limit(120) }}</p>
-            </div>
-        @empty
-            <p class="empty">No messages yet.</p>
-        @endforelse
+        <div class="message-list">
+            @forelse ($latestMessages as $message)
+                <div class="message-row {{ $message->is_read ? '' : 'unread' }}">
+                    <header>
+                        <strong>{{ $message->name }}</strong>
+                        <span class="muted">{{ $message->email }}</span>
+                        @unless ($message->is_read)<span class="badge unread">New</span>@endunless
+                        <time>{{ $message->created_at->diffForHumans() }}</time>
+                    </header>
+                    <p>{{ str($message->subject ?: 'No subject') }} — {{ str($message->body)->limit(120) }}</p>
+                </div>
+            @empty
+                <p class="empty">No messages yet.</p>
+            @endforelse
+        </div>
     </div>
 
     <div class="panel">
@@ -44,18 +46,20 @@
             <a class="btn btn-outline btn-sm spacer" href="{{ route('admin.projects.index') }}">Manage projects</a>
         </div>
 
-        @forelse ($latestProjects as $project)
-            <div class="message-row">
-                <header>
-                    <strong>{{ $project->title }}</strong>
-                    <span class="badge {{ $project->is_published ? 'on' : 'off' }}">{{ $project->is_published ? 'Published' : 'Draft' }}</span>
-                    <time>{{ $project->created_at->diffForHumans() }}</time>
-                </header>
-                <p>{{ $project->category }} — {{ str($project->summary)->limit(110) }}</p>
-            </div>
-        @empty
-            <p class="empty">No projects yet.</p>
-        @endforelse
+        <div class="message-list">
+            @forelse ($latestProjects as $project)
+                <div class="message-row">
+                    <header>
+                        <strong>{{ $project->title }}</strong>
+                        <span class="badge {{ $project->is_published ? 'on' : 'off' }}">{{ $project->is_published ? 'Published' : 'Draft' }}</span>
+                        <time>{{ $project->created_at->diffForHumans() }}</time>
+                    </header>
+                    <p>{{ $project->category }} — {{ str($project->summary)->limit(110) }}</p>
+                </div>
+            @empty
+                <p class="empty">No projects yet.</p>
+            @endforelse
+        </div>
     </div>
 
     <div class="panel">

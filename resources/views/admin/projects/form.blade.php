@@ -101,7 +101,7 @@
 
                     <label class="field check">
                         <input type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $project->is_featured))>
-                        <span>Featured</span>
+                        <span>Show on home page</span>
                     </label>
                 </div>
             </div>

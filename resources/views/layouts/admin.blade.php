@@ -20,25 +20,25 @@
 
         <nav class="side-nav">
             <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <span class="ico">&#9632;</span> Dashboard
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3Zm10 0h8v8h-8V3ZM3 13h8v8H3v-8Zm10 0h8v8h-8v-8Z"/></svg></span> Dashboard
             </a>
             <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                <span class="ico">&#9881;</span> Site content
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9v2H4V6Zm11 0h5v2h-5V6ZM4 11h4v2H4v-2Zm6 0h10v2H10v-2ZM4 16h12v2H4v-2Zm14 0h2v2h-2v-2Z"/></svg></span> Site content
             </a>
             <a href="{{ route('admin.projects.index') }}" class="{{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
-                <span class="ico">&#9635;</span> Projects
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/></svg></span> Projects
             </a>
             <a href="{{ route('admin.experiences.index') }}" class="{{ request()->routeIs('admin.experiences.*') ? 'active' : '' }}">
-                <span class="ico">&#128188;</span> Experience
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a2 2 0 0 1 2 2v2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3V6a2 2 0 0 1 2-2Zm0 4h6V6H9v2Z"/></svg></span> Experience
             </a>
             <a href="{{ route('admin.skills.index') }}" class="{{ request()->routeIs('admin.skills.*') ? 'active' : '' }}">
-                <span class="ico">&#10003;</span> Skills
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.2-7 7.2Z"/></svg></span> Skills
             </a>
             <a href="{{ route('admin.stats.index') }}" class="{{ request()->routeIs('admin.stats.*') ? 'active' : '' }}">
-                <span class="ico">&#128200;</span> Hero stats
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10h4v10H4Zm6 0V4h4v16h-4Zm6 0v-7h4v7h-4Z"/></svg></span> Hero stats
             </a>
             <a href="{{ route('admin.messages.index') }}" class="{{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
-                <span class="ico">&#9993;</span> Messages
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm8 7.2 8-5V6l-8 5-8-5v1.2l8 5Z"/></svg></span> Messages
                 @if ($unreadCount ?? \App\Models\Message::inbox()->unread()->count())
                     <span class="pill">{{ \App\Models\Message::inbox()->unread()->count() }}</span>
                 @endif
