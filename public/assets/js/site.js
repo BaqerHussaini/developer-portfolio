@@ -48,6 +48,20 @@
 
     mainNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeNav));
 
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeNav();
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!mainNav?.classList.contains('open')) return;
+        if (mainNav.contains(event.target) || navToggle?.contains(event.target)) return;
+        closeNav();
+    });
+
+    window.matchMedia('(min-width: 721px)').addEventListener('change', (event) => {
+        if (event.matches) closeNav();
+    });
+
     /* ---------- active section ---------- */
 
     const sections = [...document.querySelectorAll('main section[id]')];

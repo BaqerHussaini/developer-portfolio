@@ -5,8 +5,25 @@
 
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.getElementById('menuBtn');
+    const scrim = document.getElementById('sidebarScrim');
 
-    menuBtn?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+    const setSidebar = (open) => {
+        sidebar?.classList.toggle('open', open);
+        scrim?.toggleAttribute('hidden', !open);
+        menuBtn?.setAttribute('aria-expanded', String(open));
+    };
+
+    menuBtn?.addEventListener('click', () => setSidebar(!sidebar?.classList.contains('open')));
+    scrim?.addEventListener('click', () => setSidebar(false));
+    sidebar?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setSidebar(false)));
+
+    window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => {
+        if (event.matches) setSidebar(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setSidebar(false);
+    });
 
     /* ---------- settings tabs ---------- */
 

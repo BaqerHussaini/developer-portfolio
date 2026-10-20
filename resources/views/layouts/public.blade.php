@@ -37,7 +37,7 @@
                 ] as $item)
                     <a href="{{ route($item['route']) }}"
                        class="nav-link {{ request()->routeIs($item['route']) ? 'active' : '' }}"
-                       @if (request()->routeIs($item['route'])) aria-current="page" @endif>{{ $item['label'] }}</a>
+                       @if (request()->routeIs($item['route'])) aria-current="page" @endif><span class="nav-text">{{ $item['label'] }}</span></a>
                 @endforeach
                 <a href="{{ route('admin.login') }}" class="nav-admin" title="Admin">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Zm0 10.99h7c-.5 4-2.5 7.5-7 8.9V12H5V6.3l7-3.1v8.79Z"/></svg>

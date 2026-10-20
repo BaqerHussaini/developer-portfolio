@@ -55,9 +55,12 @@
         </div>
     </aside>
 
+    <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+
     <div class="main">
         <header class="topbar">
-            <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation">&#9776;</button>
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation"
+                    aria-expanded="false" aria-controls="sidebar">&#9776;</button>
             <h1>@yield('title', 'Dashboard')</h1>
             <span class="who">{{ auth()->user()?->email }}</span>
         </header>
