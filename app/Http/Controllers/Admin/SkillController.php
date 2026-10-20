@@ -38,7 +38,13 @@ class SkillController extends Controller
 
     public function update(SkillRequest $request, Skill $skill): RedirectResponse
     {
-        $skill->update($request->validated());
+        $skill->fill($request->validated());
+
+        if (! $skill->isDirty()) {
+            return redirect()->route('admin.skills.index')->with('status', 'Nothing updated.');
+        }
+
+        $skill->save();
 
         return redirect()->route('admin.skills.index')->with('status', 'Skill updated.');
     }

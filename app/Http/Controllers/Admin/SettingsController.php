@@ -29,6 +29,9 @@ class SettingsController extends Controller
         ]);
 
         $data = $request->input('settings', []);
+        $defaults = Setting::defaults();
+        $currentValues = Setting::query()->get()->keyBy('key');
+        $changed = false;
 
         foreach (SettingsSchema::keys() as $key) {
             if ($key === 'profile_photo') {
@@ -50,6 +53,12 @@ class SettingsController extends Controller
                 default => is_string($raw) ? trim($raw) : $raw,
             };
 
+            $current = $currentValues->get($key)?->value ?? ($defaults[$key]['value'] ?? null);
+
+            if ($current == $value) {
+                continue;
+            }
+
             Setting::updateOrCreate(
                 ['key' => $key],
                 [
@@ -57,28 +66,43 @@ class SettingsController extends Controller
                     'value' => $value,
                 ]
             );
+
+            $changed = true;
         }
 
-        $this->updateProfilePhoto($request);
+        if ($this->updateProfilePhoto($request)) {
+            $changed = true;
+        }
 
-        return back()->with('status', 'Settings saved.');
+        return $changed
+            ? back()->with('status', 'Settings saved.')
+            : back()->with('status', 'Nothing updated.');
     }
 
-    private function updateProfilePhoto(Request $request): void
+    private function updateProfilePhoto(Request $request): bool
     {
         $current = Setting::get('profile_photo');
+        $changed = false;
 
-        if ($request->boolean('remove_photo')) {
+        if ($request->boolean('remove_photo') && $current) {
             Images::delete($current);
             $current = null;
+            $changed = true;
         }
 
-        $current = Images::replace($request->file('photo'), $current, 'profile');
+        if ($request->hasFile('photo')) {
+            $current = Images::replace($request->file('photo'), $current, 'profile');
+            $changed = true;
+        }
 
-        Setting::updateOrCreate(
-            ['key' => 'profile_photo'],
-            ['group' => 'hero', 'value' => $current]
-        );
+        if ($changed) {
+            Setting::updateOrCreate(
+                ['key' => 'profile_photo'],
+                ['group' => 'hero', 'value' => $current]
+            );
+        }
+
+        return $changed;
     }
 
     private function toLines(string $raw): array

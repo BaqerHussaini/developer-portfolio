@@ -22,7 +22,7 @@
         <span class="grid-lines"></span>
     </div>
 
-    <header class="site-header" id="top">
+    <header class="site-header">
         <div class="container nav-wrap">
             <a href="{{ route('home') }}" class="logo" aria-label="{{ $siteTitle }} home">
                 <span class="logo-mark">{!! $logoInitials !!}</span>

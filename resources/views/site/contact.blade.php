@@ -46,13 +46,17 @@
             <form class="contact-form card reveal" action="{{ route('contact.store') }}" method="POST" novalidate>
                 @csrf
 
-                @if (session('status'))
-                    <p class="form-alert success">{{ session('status') }}</p>
-                @endif
+                @php
+                    $alertType = session('status') ? 'success' : ($errors->any() ? 'error' : null);
+                @endphp
 
-                @if ($errors->any())
-                    <p class="form-alert error">Please check the highlighted fields and try again.</p>
-                @endif
+                <p class="form-alert {{ $alertType }}" data-form-alert aria-live="polite" @unless ($alertType) hidden @endunless>
+                    @if (session('status'))
+                        {{ session('status') }}
+                    @elseif ($errors->any())
+                        Please check the highlighted fields and try again.
+                    @endif
+                </p>
 
                 <div class="field-row">
                     <label class="field">

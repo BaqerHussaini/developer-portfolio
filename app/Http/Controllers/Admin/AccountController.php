@@ -29,6 +29,11 @@ class AccountController extends Controller
 
         $user->name = $validated['name'];
         $user->email = $validated['email'];
+
+        if (! $user->isDirty()) {
+            return back()->with('status', 'Nothing updated.');
+        }
+
         $user->save();
 
         return back()->with('status', 'Account updated.');

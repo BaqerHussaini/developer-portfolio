@@ -142,6 +142,29 @@ class PortfolioSiteTest extends TestCase
         $this->assertSame(0, Message::count());
     }
 
+    public function test_contact_form_returns_json_for_ajax_submissions(): void
+    {
+        $this->postJson('/contact', [
+            'name' => 'Ada Lovelace',
+            'email' => 'ada@example.com',
+            'subject' => 'Hello',
+            'body' => 'Let us build something together.',
+        ])->assertOk()->assertJson([
+            'message' => 'Thanks! Your message has been sent.',
+        ]);
+
+        $this->assertDatabaseHas('messages', ['email' => 'ada@example.com']);
+    }
+
+    public function test_contact_form_returns_json_validation_errors_for_ajax_submissions(): void
+    {
+        $this->postJson('/contact', ['name' => '', 'email' => 'nope', 'body' => ''])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['name', 'email', 'body']);
+
+        $this->assertSame(0, Message::count());
+    }
+
     public function test_stats_are_rendered(): void
     {
         $this->assertSame(3, Stat::count());

@@ -234,6 +234,108 @@ class AdminPanelTest extends TestCase
         $this->assertTrue(Hash::check('secret-password', $user->fresh()->password));
     }
 
+    public function test_unchanged_settings_flashes_nothing_updated(): void
+    {
+        $this->actingAs($this->admin());
+
+        $this->put('/admin/settings', [
+            'settings' => [
+                'site_title' => Setting::defaults()['site_title']['value'],
+            ],
+        ])->assertRedirect()->assertSessionHas('status', 'Nothing updated.');
+    }
+
+    public function test_unchanged_project_flashes_nothing_updated(): void
+    {
+        $this->actingAs($this->admin());
+
+        $project = Project::create([
+            'title' => 'Existing project',
+            'slug' => 'existing-project',
+            'summary' => 'Existing summary.',
+            'tags' => [],
+            'is_published' => true,
+            'is_featured' => false,
+            'sort_order' => 1,
+        ]);
+
+        $this->put("/admin/projects/{$project->id}", [
+            'title' => 'Existing project',
+            'slug' => 'existing-project',
+            'summary' => 'Existing summary.',
+            'tags' => '',
+            'is_published' => 1,
+            'is_featured' => 0,
+            'sort_order' => 1,
+        ])->assertRedirect('/admin/projects')->assertSessionHas('status', 'Nothing updated.');
+    }
+
+    public function test_unchanged_skill_stat_and_experience_flash_nothing_updated(): void
+    {
+        $this->actingAs($this->admin());
+
+        $skill = \App\Models\Skill::create([
+            'name' => 'Laravel',
+            'level' => 80,
+            'category' => 'Backend',
+            'is_published' => true,
+            'sort_order' => 1,
+        ]);
+
+        $this->put("/admin/skills/{$skill->id}", [
+            'name' => 'Laravel',
+            'level' => 80,
+            'category' => 'Backend',
+            'is_published' => 1,
+            'sort_order' => 1,
+        ])->assertRedirect('/admin/skills')->assertSessionHas('status', 'Nothing updated.');
+
+        $stat = \App\Models\Stat::create([
+            'label' => 'Projects',
+            'value' => '10+',
+            'is_published' => true,
+            'sort_order' => 1,
+        ]);
+
+        $this->put("/admin/stats/{$stat->id}", [
+            'label' => 'Projects',
+            'value' => '10+',
+            'is_published' => 1,
+            'sort_order' => 1,
+        ])->assertRedirect('/admin/stats')->assertSessionHas('status', 'Nothing updated.');
+
+        $experience = \App\Models\Experience::create([
+            'company' => 'Acme',
+            'role' => 'Engineer',
+            'start_date' => '2024-01-01',
+            'is_current' => true,
+            'description' => 'Building things.',
+            'is_published' => true,
+            'sort_order' => 1,
+        ]);
+
+        $this->put("/admin/experiences/{$experience->id}", [
+            'company' => 'Acme',
+            'role' => 'Engineer',
+            'start_date' => '2024-01-01',
+            'is_current' => 1,
+            'description' => 'Building things.',
+            'is_published' => 1,
+            'sort_order' => 1,
+        ])->assertRedirect('/admin/experiences')->assertSessionHas('status', 'Nothing updated.');
+    }
+
+    public function test_unchanged_account_flashes_nothing_updated(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account', [
+            'name' => $user->name,
+            'email' => $user->email,
+        ])->assertRedirect()->assertSessionHas('status', 'Nothing updated.');
+    }
+
     public function test_admin_can_sign_out(): void
     {
         $this->actingAs($this->admin());

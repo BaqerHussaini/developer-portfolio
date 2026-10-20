@@ -45,6 +45,14 @@ class ProjectController extends Controller
     {
         $data = $request->safe()->except(['image', 'remove_image']);
         $current = $project->image_path;
+        $imageChanged = $request->hasFile('image')
+            || ($request->boolean('remove_image') && $current !== null);
+
+        $project->fill($data);
+
+        if (! $project->isDirty() && ! $imageChanged) {
+            return redirect()->route('admin.projects.index')->with('status', 'Nothing updated.');
+        }
 
         if ($request->boolean('remove_image')) {
             Images::delete($current);
@@ -53,7 +61,7 @@ class ProjectController extends Controller
 
         $data['image_path'] = Images::replace($request->file('image'), $current, 'projects');
 
-        $project->update($data);
+        $project->fill($data)->save();
 
         return redirect()->route('admin.projects.index')->with('status', 'Project updated.');
     }

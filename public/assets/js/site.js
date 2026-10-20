@@ -52,6 +52,11 @@
         if (event.key === 'Escape') closeNav();
     });
 
+    document.querySelector('.to-top')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     document.addEventListener('click', (event) => {
         if (!mainNav?.classList.contains('open')) return;
         if (mainNav.contains(event.target) || navToggle?.contains(event.target)) return;
@@ -248,12 +253,86 @@
 
     const form = document.querySelector('.contact-form');
 
-    form?.addEventListener('submit', () => {
+    if (form) {
+        const alertBox = form.querySelector('[data-form-alert]');
         const button = form.querySelector('button[type="submit"]');
+        const buttonMarkup = button?.innerHTML ?? '';
+        let submitting = false;
 
-        if (!button) return;
+        const showAlert = (message, type) => {
+            if (!alertBox) return;
 
-        button.disabled = true;
-        button.textContent = 'Sending…';
-    });
+            alertBox.textContent = message;
+            alertBox.classList.remove('success', 'error');
+            alertBox.classList.add(type);
+            alertBox.hidden = false;
+        };
+
+        const clearFieldErrors = () => {
+            form.querySelectorAll('.field-error').forEach((error) => error.remove());
+        };
+
+        const showFieldErrors = (errors = {}) => {
+            Object.entries(errors).forEach(([field, messages]) => {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (!input || !messages?.length) return;
+
+                const note = document.createElement('em');
+                note.className = 'field-error';
+                note.textContent = messages[0];
+                input.insertAdjacentElement('afterend', note);
+            });
+        };
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (submitting) return;
+
+            submitting = true;
+            clearFieldErrors();
+            if (alertBox) alertBox.hidden = true;
+
+            if (button) {
+                button.disabled = true;
+                button.textContent = 'Sending…';
+            }
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: new FormData(form),
+                });
+
+                if (response.ok) {
+                    const data = await response.json().catch(() => ({}));
+                    form.reset();
+                    showAlert(data.message || 'Thanks! Your message has been sent.', 'success');
+                    return;
+                }
+
+                if (response.status === 422) {
+                    const data = await response.json().catch(() => ({}));
+                    showAlert('Please check the highlighted fields and try again.', 'error');
+                    showFieldErrors(data.errors);
+                    return;
+                }
+
+                showAlert('Something went wrong. Please try again.', 'error');
+            } catch (error) {
+                showAlert('Something went wrong. Please try again.', 'error');
+            } finally {
+                submitting = false;
+
+                if (button) {
+                    button.disabled = false;
+                    button.innerHTML = buttonMarkup;
+                }
+            }
+        });
+    }
 })();

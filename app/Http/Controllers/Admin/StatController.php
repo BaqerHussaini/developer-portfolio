@@ -38,7 +38,13 @@ class StatController extends Controller
 
     public function update(StatRequest $request, Stat $stat): RedirectResponse
     {
-        $stat->update($request->validated());
+        $stat->fill($request->validated());
+
+        if (! $stat->isDirty()) {
+            return redirect()->route('admin.stats.index')->with('status', 'Nothing updated.');
+        }
+
+        $stat->save();
 
         return redirect()->route('admin.stats.index')->with('status', 'Stat updated.');
     }

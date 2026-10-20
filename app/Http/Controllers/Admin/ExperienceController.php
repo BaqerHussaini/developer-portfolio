@@ -38,7 +38,13 @@ class ExperienceController extends Controller
 
     public function update(ExperienceRequest $request, Experience $experience): RedirectResponse
     {
-        $experience->update($request->validated());
+        $experience->fill($request->validated());
+
+        if (! $experience->isDirty()) {
+            return redirect()->route('admin.experiences.index')->with('status', 'Nothing updated.');
+        }
+
+        $experience->save();
 
         return redirect()->route('admin.experiences.index')->with('status', 'Experience updated.');
     }
