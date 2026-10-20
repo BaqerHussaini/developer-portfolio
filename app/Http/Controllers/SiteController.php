@@ -11,4 +11,24 @@ class SiteController extends Controller
     {
         return view('site.index', Portfolio::content());
     }
+
+    public function projects(): View
+    {
+        return view('site.projects', Portfolio::content());
+    }
+
+    public function experience(): View
+    {
+        return view('site.experience', Portfolio::content());
+    }
+
+    public function about(): View
+    {
+        return view('site.about', Portfolio::content());
+    }
+
+    public function contact(): View
+    {
+        return view('site.contact', Portfolio::content());
+    }
 }

@@ -15,6 +15,6 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        return back()->with('status', 'Thanks! Your message has been sent.');
+        return redirect()->route('contact')->with('status', 'Thanks! Your message has been sent.');
     }
 }

@@ -51,7 +51,8 @@
     /* ---------- active section ---------- */
 
     const sections = [...document.querySelectorAll('main section[id]')];
-    const navLinks = [...document.querySelectorAll('.main-nav .nav-link')];
+    const navLinks = [...document.querySelectorAll('.main-nav .nav-link')]
+        .filter((link) => link.getAttribute('href')?.startsWith('#'));
 
     if (sections.length && navLinks.length) {
         const spy = new IntersectionObserver((entries) => {

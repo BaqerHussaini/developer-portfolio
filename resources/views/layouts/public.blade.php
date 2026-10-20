@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $seoDescription }}">
-    <title>{{ $siteTitle }}</title>
+    <title>@yield('pageTitle', $siteTitle)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,16 +23,22 @@
 
     <header class="site-header" id="top">
         <div class="container nav-wrap">
-            <a href="#home" class="logo" aria-label="{{ $siteTitle }} home">
+            <a href="{{ route('home') }}" class="logo" aria-label="{{ $siteTitle }} home">
                 <span class="logo-mark">{!! $logoInitials !!}</span>
             </a>
 
             <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                @foreach ([
+                    ['route' => 'home', 'label' => 'Home'],
+                    ['route' => 'projects', 'label' => 'Projects'],
+                    ['route' => 'experience', 'label' => 'Experience'],
+                    ['route' => 'about', 'label' => 'About'],
+                    ['route' => 'contact', 'label' => 'Contact'],
+                ] as $item)
+                    <a href="{{ route($item['route']) }}"
+                       class="nav-link {{ request()->routeIs($item['route']) ? 'active' : '' }}"
+                       @if (request()->routeIs($item['route'])) aria-current="page" @endif>{{ $item['label'] }}</a>
+                @endforeach
                 <a href="{{ route('admin.login') }}" class="nav-admin" title="Admin">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Zm0 10.99h7c-.5 4-2.5 7.5-7 8.9V12H5V6.3l7-3.1v8.79Z"/></svg>
                 </a>

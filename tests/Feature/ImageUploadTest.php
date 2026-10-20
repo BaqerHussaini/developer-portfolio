@@ -43,7 +43,7 @@ class ImageUploadTest extends TestCase
         $this->assertNotNull($project->image_path);
         Storage::disk('public')->assertExists($project->image_path);
 
-        $this->get('/')->assertOk()->assertSee(Storage::disk('public')->url($project->image_path));
+        $this->get('/projects')->assertOk()->assertSee(Storage::disk('public')->url($project->image_path));
     }
 
     public function test_uploading_a_new_image_replaces_and_deletes_the_old_file(): void

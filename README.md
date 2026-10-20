@@ -67,7 +67,7 @@ app/Http/Middleware/AdminAuth admin route guard
 app/Models/                   Setting, Project, Experience, Skill, Stat, Message
 app/Support/Portfolio.php     assembles all site content for the front-end
 app/Support/SettingsSchema.php defines the editable settings form
-resources/views/site/         public page
+resources/views/site/         public pages (home, projects, experience, about, contact)
 resources/views/admin/        admin screens
 public/assets/css|js          plain CSS/JS — no build step required
 database/migrations           PostgreSQL schema

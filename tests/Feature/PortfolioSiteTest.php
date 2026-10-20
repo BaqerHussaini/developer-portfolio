@@ -23,13 +23,38 @@ class PortfolioSiteTest extends TestCase
         $this->seed(\Database\Seeders\PortfolioContentSeeder::class);
     }
 
-    public function test_home_page_renders_seeded_content(): void
+    public function test_each_page_renders_its_seeded_content(): void
     {
         $this->get('/')
             ->assertOk()
-            ->assertSee('TaskFlow Pro')
             ->assertSee('Full-Stack Developer')
+            ->assertSee('Projects built');
+
+        $this->get('/projects')
+            ->assertOk()
+            ->assertSee('TaskFlow Pro');
+
+        $this->get('/experience')
+            ->assertOk()
+            ->assertSee('Present');
+
+        $this->get('/about')
+            ->assertOk()
+            ->assertSee('Toolbox');
+
+        $this->get('/contact')
+            ->assertOk()
             ->assertSee('Kabul, Afghanistan');
+    }
+
+    public function test_navigation_links_point_to_each_page(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee(route('projects'), false)
+            ->assertSee(route('experience'), false)
+            ->assertSee(route('about'), false)
+            ->assertSee(route('contact'), false);
     }
 
     public function test_home_page_uses_settings_from_database(): void
@@ -53,15 +78,18 @@ class PortfolioSiteTest extends TestCase
 
         Skill::create(['name' => 'Hidden Skill', 'level' => 10, 'is_published' => false]);
 
-        $this->get('/')
+        $this->get('/projects')
             ->assertOk()
-            ->assertDontSee('Hidden Project')
+            ->assertDontSee('Hidden Project');
+
+        $this->get('/about')
+            ->assertOk()
             ->assertDontSee('Hidden Skill');
     }
 
     public function test_experience_period_is_derived_from_dates(): void
     {
-        $this->get('/')->assertOk()->assertSee('Present');
+        $this->get('/experience')->assertOk()->assertSee('Present');
 
         $current = Experience::firstWhere('is_current', true);
         $past = Experience::firstWhere('is_current', false);
