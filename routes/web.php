@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExperienceController;
@@ -29,6 +30,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+
+        Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('account', [AccountController::class, 'update'])->name('account.update');
+        Route::get('account/password', [AccountController::class, 'editPassword'])->name('account.password.edit');
+        Route::put('account/password', [AccountController::class, 'updatePassword'])->name('account.password.update');
 
         Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');

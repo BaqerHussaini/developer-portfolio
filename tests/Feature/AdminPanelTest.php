@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AdminPanelTest extends TestCase
@@ -58,6 +59,8 @@ class AdminPanelTest extends TestCase
         foreach ([
             '/admin',
             '/admin/settings',
+            '/admin/account',
+            '/admin/account/password',
             '/admin/projects',
             '/admin/projects/create',
             '/admin/experiences',
@@ -185,6 +188,50 @@ class AdminPanelTest extends TestCase
             ['digital experiences', 'modern products', 'clean systems'],
             \App\Support\Portfolio::content()['hero']['phrases']
         );
+    }
+
+    public function test_admin_can_update_account_details(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account', [
+            'name' => 'Updated Name',
+            'email' => 'updated@example.com',
+        ])->assertRedirect()->assertSessionHas('status');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Updated Name',
+            'email' => 'updated@example.com',
+        ]);
+    }
+
+    public function test_admin_can_change_password_with_the_current_password(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account/password', [
+            'current_password' => 'secret-password',
+            'password' => 'new-secret-password',
+            'password_confirmation' => 'new-secret-password',
+        ])->assertRedirect('/admin/account');
+
+        $this->assertTrue(Hash::check('new-secret-password', $user->fresh()->password));
+    }
+
+    public function test_password_change_requires_the_current_password(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account/password', [
+            'password' => 'new-secret-password',
+            'password_confirmation' => 'new-secret-password',
+        ])->assertSessionHasErrors('current_password');
+
+        $this->assertTrue(Hash::check('secret-password', $user->fresh()->password));
     }
 
     public function test_admin_can_sign_out(): void

@@ -44,6 +44,9 @@
                     <span class="pill">{{ \App\Models\Message::inbox()->unread()->count() }}</span>
                 @endif
             </a>
+            <a href="{{ route('admin.account.edit') }}" class="{{ request()->routeIs('admin.account.*') ? 'active' : '' }}">
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5Z"/></svg></span> Account
+            </a>
         </nav>
 
         <div class="side-foot">

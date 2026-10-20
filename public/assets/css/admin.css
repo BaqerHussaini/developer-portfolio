@@ -313,6 +313,8 @@ input[type="color"] { padding: .25rem; height: 42px; }
 
 .error-text { color: var(--danger); font-size: .78rem; }
 
+.password-mask { letter-spacing: .14em; color: var(--muted); cursor: default; }
+
 .fieldset-title {
     margin: .4rem 0 -.2rem;
     padding-bottom: .5rem;
