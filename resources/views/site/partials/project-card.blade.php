@@ -1,5 +1,5 @@
 <article class="project-card reveal">
-    <div class="project-thumb thumb-{{ (($loop->iteration ?? 1) % 3) + 1 }}">
+    <div class="project-thumb thumb-{{ (($project->id ?? $loop->iteration ?? 1) % 3) + 1 }}">
         @if ($project->image)
             <img src="{{ $project->image }}" alt="{{ $project->title }}">
         @else
@@ -10,9 +10,9 @@
 
     <div class="project-copy">
         <div class="project-topline">
-            <h3>{{ $project->title }}</h3>
+            <h3><a class="project-title-link" href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a></h3>
             @if ($project->live_url)
-                <a href="{{ $project->live_url }}" target="_blank" rel="noreferrer" aria-label="Open {{ $project->title }}">
+                <a href="{{ $project->live_url }}" target="_blank" rel="noreferrer" aria-label="Open {{ $project->title }} live site">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6h-2V6.4l-8.3 8.3-1.4-1.4L16.6 5H14V4Zm-9 3h4v2H6v10h10v-3h2v5H4V7h1Z"/></svg>
                 </a>
             @endif

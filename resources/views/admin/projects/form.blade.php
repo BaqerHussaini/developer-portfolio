@@ -76,6 +76,42 @@
                     <textarea name="summary" rows="4" required>{{ old('summary', $project->summary) }}</textarea>
                 </label>
 
+                <label class="field">
+                    <span>Description (Markdown)</span>
+                    <textarea name="description" rows="16" class="markdown-input" placeholder="## Overview&#10;&#10;Write about the project, the problem, and the outcome.">{{ old('description', $project->description) }}</textarea>
+                    <small>Optional. Markdown supports headings, bold, italic, links, lists, tables, code blocks, and more.</small>
+                </label>
+
+                <details class="markdown-help">
+                    <summary>Markdown cheat sheet</summary>
+                    <pre># Heading 1
+## Heading 2
+### Heading 3
+
+**Bold** and *italic* and ~~strikethrough~~
+
+- Bullet list
+1. Numbered list
+- [ ] Task
+- [x] Done
+
+[Link text](https://example.com)
+
+| Column A | Column B |
+| -------- | -------- |
+| Value 1  | Value 2  |
+
+`inline code`
+
+```php
+echo 'Code block';
+```
+
+> Blockquote
+
+---</pre>
+                </details>
+
                 <div class="cols-2">
                     <label class="field">
                         <span>Live URL</span>

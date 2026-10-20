@@ -48,7 +48,11 @@
             const template = document.getElementById(id);
             if (!template) return;
 
-            const index = repeater.querySelectorAll('.repeater-row').length;
+            const indices = [...repeater.querySelectorAll('[name]')]
+                .map((field) => field.name.match(/\[(\d+)\]/))
+                .filter(Boolean)
+                .map((match) => Number(match[1]));
+            const index = indices.length ? Math.max(...indices) + 1 : 0;
             const holder = document.createElement('div');
             holder.innerHTML = template.innerHTML.replace(/__INDEX__/g, index);
 
@@ -56,7 +60,7 @@
             if (!row) return;
 
             repeater.querySelector('.repeater-empty')?.remove();
-            row.querySelectorAll('input').forEach((input) => { input.value = ''; });
+            row.querySelectorAll('input, textarea').forEach((input) => { input.value = ''; });
             repeater.appendChild(row);
             row.querySelector('input')?.focus();
         };

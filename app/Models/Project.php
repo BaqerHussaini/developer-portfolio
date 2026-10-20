@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Project extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'category', 'summary', 'tags', 'image_url', 'image_path',
+        'title', 'slug', 'category', 'summary', 'description', 'tags', 'image_url', 'image_path',
         'live_url', 'repo_url', 'is_featured', 'is_published', 'sort_order',
     ];
 
@@ -42,6 +42,11 @@ class Project extends Model
     public function getImageAttribute(): ?string
     {
         return \App\Support\Images::url($this->image_path) ?? $this->image_url;
+    }
+
+    public function getDescriptionHtmlAttribute(): string
+    {
+        return \App\Support\Markdown::toHtml($this->description);
     }
 
     protected static function booted(): void

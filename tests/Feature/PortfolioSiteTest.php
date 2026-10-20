@@ -109,6 +109,116 @@ class PortfolioSiteTest extends TestCase
             ->assertDontSee('Hidden Skill');
     }
 
+    public function test_project_detail_page_renders_a_published_project(): void
+    {
+        $project = Project::firstWhere('title', 'TaskFlow Pro');
+
+        $this->get(route('projects.show', $project->slug))
+            ->assertOk()
+            ->assertSee($project->title)
+            ->assertSee($project->summary)
+            ->assertSee('Overview')
+            ->assertSee('Outcome')
+            ->assertSee('TaskFlow Pro gives teams one place')
+            ->assertSee('faster planning cycle')
+            ->assertSee('All projects');
+    }
+
+    public function test_project_page_shows_up_to_three_similar_published_projects(): void
+    {
+        $project = Project::create([
+            'title' => 'Primary Project',
+            'category' => 'Test Category',
+            'summary' => 'The project being viewed.',
+            'is_published' => true,
+        ]);
+
+        foreach (range(1, 4) as $index) {
+            Project::create([
+                'title' => "Similar Project {$index}",
+                'category' => 'Test Category',
+                'summary' => 'A related project.',
+                'is_published' => true,
+                'sort_order' => $index,
+            ]);
+        }
+
+        Project::create([
+            'title' => 'Other Category Project',
+            'category' => 'Mobile',
+            'summary' => 'Not related.',
+            'is_published' => true,
+        ]);
+
+        Project::create([
+            'title' => 'Unpublished Similar Project',
+            'category' => 'Test Category',
+            'summary' => 'Hidden similar project.',
+            'is_published' => false,
+        ]);
+
+        $this->get(route('projects.show', $project->slug))
+            ->assertOk()
+            ->assertSee('Similar projects')
+            ->assertSee('Similar Project 1')
+            ->assertSee('Similar Project 2')
+            ->assertSee('Similar Project 3')
+            ->assertDontSee('Similar Project 4')
+            ->assertDontSee('Unpublished Similar Project')
+            ->assertDontSee('Other Category Project');
+    }
+
+    public function test_project_description_renders_markdown_and_strips_unsafe_html(): void
+    {
+        $withoutDescription = Project::create([
+            'title' => 'Plain Project',
+            'summary' => 'No detail yet.',
+            'is_published' => true,
+        ]);
+
+        $withDescription = Project::create([
+            'title' => 'Rich Project',
+            'summary' => 'Has detail.',
+            'description' => "# Heading\n\n**Bold** and *italic*.\n\n| A | B |\n| - | - |\n| 1 | 2 |\n\n```php\necho 'hi';\n```\n\n[Bad link](javascript:alert(1))\n\n<script>alert('xss')</script>",
+            'is_published' => true,
+        ]);
+
+        $this->get(route('projects.show', $withoutDescription->slug))
+            ->assertOk()
+            ->assertDontSee('project-description', false);
+
+        $this->get(route('projects.show', $withDescription->slug))
+            ->assertOk()
+            ->assertSee('<h1>Heading</h1>', false)
+            ->assertSee('<strong>Bold</strong>', false)
+            ->assertSee('<em>italic</em>', false)
+            ->assertSee('<table>', false)
+            ->assertSee('<code class="language-php">', false)
+            ->assertDontSee('javascript:', false)
+            ->assertDontSee("alert('xss')", false);
+    }
+
+    public function test_project_cards_link_to_their_detail_pages(): void
+    {
+        $project = Project::firstWhere('title', 'TaskFlow Pro');
+
+        $this->get('/projects')
+            ->assertOk()
+            ->assertSee(route('projects.show', $project->slug), false);
+    }
+
+    public function test_unpublished_project_detail_page_is_not_accessible(): void
+    {
+        $project = Project::create([
+            'title' => 'Hidden Project',
+            'slug' => 'hidden-project',
+            'summary' => 'Should not be visible.',
+            'is_published' => false,
+        ]);
+
+        $this->get(route('projects.show', $project->slug))->assertNotFound();
+    }
+
     public function test_experience_period_is_derived_from_dates(): void
     {
         $this->get('/experience')->assertOk()->assertSee('Present');

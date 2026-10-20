@@ -80,6 +80,7 @@ class AdminPanelTest extends TestCase
             'title' => 'Laravel Portfolio',
             'category' => 'Web App',
             'summary' => 'Full stack rebuild with PostgreSQL.',
+            'description' => 'A longer write-up about the build.',
             'tags' => 'Laravel, PostgreSQL',
             'sort_order' => 1,
             'is_published' => 1,
@@ -88,10 +89,12 @@ class AdminPanelTest extends TestCase
         $project = Project::firstWhere('title', 'Laravel Portfolio');
 
         $this->assertSame(['Laravel', 'PostgreSQL'], $project->tags);
+        $this->assertSame('A longer write-up about the build.', $project->description);
 
         $this->put("/admin/projects/{$project->id}", [
             'title' => 'Laravel Portfolio v2',
             'summary' => 'Updated summary.',
+            'description' => 'Updated **description**.',
             'tags' => '',
             'sort_order' => 1,
             'is_published' => 0,
@@ -100,6 +103,7 @@ class AdminPanelTest extends TestCase
         $this->assertDatabaseHas('projects', [
             'id' => $project->id,
             'title' => 'Laravel Portfolio v2',
+            'description' => 'Updated **description**.',
             'is_published' => false,
         ]);
 
