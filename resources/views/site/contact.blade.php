@@ -29,8 +29,14 @@
                 @if ($contact['socials'])
                     <div class="socials">
                         @foreach ($contact['socials'] as $social)
-                            <a href="{{ $social['url'] }}" target="_blank" rel="noreferrer" title="{{ $social['platform'] }}">
-                                {{ str($social['platform'] ?? 'Link')->substr(0, 2)->upper() }}
+                            <a href="{{ $social['url'] }}" target="_blank" rel="noreferrer"
+                               title="{{ $social['platform'] }}"
+                               aria-label="{{ $social['platform'] ?? 'Social link' }}">
+                                @if (! empty($social['icon']))
+                                    <i class="{{ $social['icon'] }}" aria-hidden="true"></i>
+                                @else
+                                    {{ str($social['platform'] ?? 'Link')->substr(0, 2)->upper() }}
+                                @endif
                             </a>
                         @endforeach
                     </div>

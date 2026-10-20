@@ -128,22 +128,45 @@
 
     if (rotator && phrases.length) {
         // Reserve room for the tallest phrase so nothing below ever shifts.
+        // Measure again after fonts load and on resize, because wrapping can
+        // change when the typeface or the available width changes.
         const probe = document.createElement('span');
-        probe.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;';
+        probe.setAttribute('aria-hidden', 'true');
+        probe.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;';
         rotator.parentElement.appendChild(probe);
 
-        probe.style.width = rotator.offsetWidth + 'px';
-        probe.style.font = getComputedStyle(rotator).font;
-        probe.style.letterSpacing = getComputedStyle(rotator).letterSpacing;
+        const measure = () => {
+            const styles = getComputedStyle(rotator);
 
-        let tallest = 0;
-        phrases.forEach((phrase) => {
-            probe.textContent = phrase;
-            tallest = Math.max(tallest, probe.offsetHeight);
+            probe.style.width = rotator.getBoundingClientRect().width + 'px';
+            probe.style.font = styles.font;
+            probe.style.letterSpacing = styles.letterSpacing;
+            probe.style.lineHeight = styles.lineHeight;
+
+            let tallest = 0;
+            phrases.forEach((phrase) => {
+                probe.textContent = phrase;
+                tallest = Math.max(tallest, probe.offsetHeight);
+            });
+
+            if (tallest > 0) {
+                rotator.style.minHeight = tallest + 'px';
+            }
+        };
+
+        measure();
+
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(measure);
+        }
+
+        window.addEventListener('load', measure);
+
+        let resizeFrame = 0;
+        window.addEventListener('resize', () => {
+            window.cancelAnimationFrame(resizeFrame);
+            resizeFrame = window.requestAnimationFrame(measure);
         });
-
-        probe.remove();
-        rotator.style.minHeight = tallest + 'px';
 
         if (reduceMotion || phrases.length < 2) return;
 

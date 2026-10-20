@@ -237,7 +237,7 @@ p { margin: 0 0 1rem; }
 }
 
 .btn:hover { transform: translateY(-1px); }
-.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-alt)); color: #fff; }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-alt)); background-origin: border-box; color: #fff; }
 .btn-outline { border-color: var(--border); background: var(--panel-2); color: var(--text); }
 .btn-outline:hover { border-color: var(--accent); }
 .btn-danger { border-color: rgba(248, 113, 113, .4); background: rgba(248, 113, 113, .1); color: #fca5a5; }

@@ -97,4 +97,16 @@
             @endif
         </div>
     </section>
+
+    <section id="contact-hint" class="section contact-hint-section">
+        <div class="container">
+            <div class="contact-hint contact-hint--strip card reveal">
+                <p><strong>Have a project in mind?</strong> {{ $contact['intro'] }}</p>
+                <a class="btn btn-ghost" href="{{ route('contact') }}">
+                    Get in touch
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5.5 20 12l-6.5 6.5-1.4-1.4 4.1-4.1H4v-2h12.2l-4.1-4.1 1.4-1.4Z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
 @endsection

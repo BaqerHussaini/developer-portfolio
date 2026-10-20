@@ -379,6 +379,7 @@ img { max-width: 100%; display: block; }
 .btn-primary {
     color: #fff;
     background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+    background-origin: border-box;
     box-shadow: 0 18px 40px -18px var(--accent);
 }
 
@@ -779,6 +780,22 @@ img { max-width: 100%; display: block; }
     transition: width 1.2s var(--ease);
 }
 
+/* ---------- contact hint ---------- */
+
+.contact-hint-section { padding-top: 0; }
+
+.contact-hint--strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    padding: 1.2rem clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.contact-hint--strip p { margin: 0; max-width: 60ch; color: var(--text-muted); font-size: 0.95rem; }
+.contact-hint--strip strong { font-family: "Sora", sans-serif; color: var(--text); }
+
 /* ---------- contact ---------- */
 
 .contact-section { padding-bottom: clamp(3rem, 6vw, 5rem); }
@@ -823,6 +840,7 @@ img { max-width: 100%; display: block; }
 }
 
 .socials a:hover { transform: translateY(-3px); color: var(--text); border-color: var(--accent); }
+.socials a i { font-size: 1rem; line-height: 1; }
 
 .contact-form { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
 
@@ -889,14 +907,14 @@ img { max-width: 100%; display: block; }
     .about-grid,
     .contact-grid { grid-template-columns: 1fr; }
 
-    .hero { min-height: auto; }
+    .hero { min-height: auto; padding-bottom: 5.5rem; }
     .hero-visual { order: -1; }
     .profile-card { width: min(100%, 340px); }
-    .scroll-hint { display: none; }
     .section-head { align-items: flex-start; }
 }
 
 @media (max-width: 720px) {
+    .rotator { min-height: 0 !important; }
     .nav-toggle { display: flex; }
     .nav-actions { margin-left: auto; }
 
@@ -930,6 +948,7 @@ img { max-width: 100%; display: block; }
     .container { width: min(100% - 2rem, var(--container)); }
     .hero-title { font-size: clamp(2rem, 9vw, 2.6rem); }
     .cta-row .btn { flex: 1 1 100%; justify-content: center; }
+    .contact-hint .btn { width: 100%; justify-content: center; }
     .section-head .btn { width: 100%; justify-content: center; }
     .contact-form { padding: 1.25rem; }
     .skills-panel { padding: 1.3rem; }
