@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personal portfolio website showcasing projects, experience, about, and contact information."
+    />
+    <title>Alex Carter | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwUEQp3e6PNB9+4JmE2aI0jU4n9uT8N0F0eUuQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-blur blur-one"></div>
+    <div class="bg-blur blur-two"></div>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="#home" class="logo" id="siteLogo">B<span>H</span></a>
+
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#home" class="active">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow" id="heroGreeting">Hello, I'm Baqer Hussaini</p>
+            <h1>
+              I build <span class="accent-text" id="typed-text">digital experiences</span>
+            </h1>
+            <p class="lead" id="heroDescription">
+              Software engineer and product-minded developer crafting reliable, scalable, and user-friendly digital experiences.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#projects">View Projects</a>
+              <a class="btn btn-secondary" href="#contact">Hire Me</a>
+            </div>
+
+            <ul class="mini-stats" aria-label="Key stats" id="statsList"></ul>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="profile-card">
+              <div class="orb orb-one"></div>
+              <div class="orb orb-two"></div>
+              <div class="profile-badge badge-top">Available for work</div>
+              <div class="profile-image-wrap">
+                <div class="profile-image">
+                  <div class="person-shape"></div>
+                </div>
+              </div>
+              <div class="profile-info">
+                <div>
+                  <p class="label">Current role</p>
+                  <h3 id="heroRole">Full-Stack Developer</h3>
+                </div>
+                <div class="status-dot"></div>
+              </div>
+              <div class="metrics-grid">
+                <div class="metric-box">
+                  <span>Web</span>
+                  <strong>96%</strong>
+                </div>
+                <div class="metric-box">
+                  <span>APIs</span>
+                  <strong>92%</strong>
+                </div>
+                <div class="metric-box">
+                  <span>UI</span>
+                  <strong>94%</strong>
+                </div>
+                <div class="metric-box">
+                  <span>Quality</span>
+                  <strong>4.9/5</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Featured Work</p>
+            <h2>Projects</h2>
+          </div>
+
+          <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+      </section>
+
+      <section id="experience" class="section muted-section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Career Path</p>
+            <h2>Experience</h2>
+          </div>
+
+          <div class="timeline reveal" id="experienceTimeline"></div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container about-grid">
+          <div class="about-copy reveal">
+            <div class="section-heading left">
+              <p class="eyebrow">About Me</p>
+              <h2 id="aboutHeadline">Building thoughtful digital experiences.</h2>
+            </div>
+            <div id="aboutParagraphs"></div>
+          </div>
+
+          <div class="skills-panel reveal">
+            <div id="skillsList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact-section">
+        <div class="container contact-grid">
+          <div class="contact-copy reveal">
+            <div class="section-heading left">
+              <p class="eyebrow">Let’s Talk</p>
+              <h2>Contact</h2>
+            </div>
+            <p id="contactIntro">
+              Available for freelance work, product development, and collaboration opportunities.
+            </p>
+
+            <div class="contact-items">
+              <a id="emailLink" href="mailto:engineer.baqer.hussaini@gmail.com"><i class="fa-solid fa-envelope"></i> engineer.baqer.hussaini@gmail.com</a>
+              <span><i class="fa-solid fa-location-dot"></i> Kabul, Afghanistan</span>
+            </div>
+
+            <div class="socials">
+              <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i></a>
+              <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://dribbble.com" aria-label="Dribbble" target="_blank" rel="noreferrer"><i class="fa-brands fa-dribbble"></i></a>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm">
+            <div class="field-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="Your email" required />
+              </label>
+            </div>
+
+            <label>
+              <span>Subject</span>
+              <input type="text" name="subject" placeholder="Project inquiry" required />
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+            </label>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <p>© <span id="year"></span> Baqer Hussaini. All rights reserved.</p>
+        <a href="#home">Back to top</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

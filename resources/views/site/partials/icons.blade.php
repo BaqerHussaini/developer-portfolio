@@ -1,0 +1,1 @@
+<link rel="icon" href="data:image/svg+xml,{{ rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="#6366f1"/><text x="50" y="68" font-family="Inter,sans-serif" font-size="52" font-weight="700" fill="#fff" text-anchor="middle">'.e($logoInitials).'</text></svg>') }}">
