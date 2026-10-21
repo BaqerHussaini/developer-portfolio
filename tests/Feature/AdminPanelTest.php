@@ -26,6 +26,49 @@ class AdminPanelTest extends TestCase
     {
         $this->get('/admin')->assertRedirect('/admin/login');
         $this->get('/admin/projects')->assertRedirect('/admin/login');
+        $this->get('/admin/heartbeat')->assertRedirect('/admin/login');
+    }
+
+    public function test_admin_heartbeat_responds_for_signed_in_users(): void
+    {
+        $this->actingAs($this->admin());
+
+        $this->get('/admin/heartbeat')->assertNoContent();
+    }
+
+    public function test_admin_layout_includes_the_theme_toggle(): void
+    {
+        $this->actingAs($this->admin());
+
+        $this->get('/admin')
+            ->assertOk()
+            ->assertSee('id="adminThemeToggle"', false)
+            ->assertSee('id="sidebarClose"', false)
+            ->assertSee('portfolio-admin-theme', false);
+    }
+
+    public function test_dashboard_topbar_does_not_show_the_admin_email(): void
+    {
+        $admin = $this->admin();
+
+        $this->actingAs($admin);
+
+        $this->get('/admin')
+            ->assertOk()
+            ->assertDontSee($admin->email);
+    }
+
+    public function test_account_page_masks_the_admin_email(): void
+    {
+        $admin = $this->admin();
+
+        $this->actingAs($admin);
+
+        $this->get('/admin/account')
+            ->assertOk()
+            ->assertSee($admin->maskedEmail())
+            ->assertSee('Change email')
+            ->assertDontSee($admin->email);
     }
 
     public function test_admin_can_sign_in_with_the_seeded_account(): void
@@ -60,6 +103,7 @@ class AdminPanelTest extends TestCase
             '/admin',
             '/admin/settings',
             '/admin/account',
+            '/admin/account/email',
             '/admin/account/password',
             '/admin/projects',
             '/admin/projects/create',
@@ -201,13 +245,78 @@ class AdminPanelTest extends TestCase
 
         $this->put('/admin/account', [
             'name' => 'Updated Name',
-            'email' => 'updated@example.com',
         ])->assertRedirect()->assertSessionHas('status');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'name' => 'Updated Name',
-            'email' => 'updated@example.com',
+            'email' => $user->email,
+        ]);
+    }
+
+    public function test_profile_update_cannot_change_the_email(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account', [
+            'name' => 'Updated Name',
+            'email' => 'injected@example.com',
+        ])->assertRedirect();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Updated Name',
+            'email' => $user->email,
+        ]);
+    }
+
+    public function test_admin_can_change_email_with_the_current_password(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account/email', [
+            'current_password' => 'secret-password',
+            'email' => 'new-email@example.com',
+        ])->assertRedirect('/admin/account')->assertSessionHas('status', 'Email updated.');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email' => 'new-email@example.com',
+        ]);
+    }
+
+    public function test_email_change_requires_the_current_password(): void
+    {
+        $user = $this->admin();
+        $this->actingAs($user);
+
+        $this->put('/admin/account/email', [
+            'current_password' => 'not-the-password',
+            'email' => 'new-email@example.com',
+        ])->assertSessionHasErrors('current_password');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email' => $user->email,
+        ]);
+    }
+
+    public function test_email_change_rejects_an_email_already_in_use(): void
+    {
+        $user = $this->admin();
+        $other = User::factory()->create(['email' => 'taken@example.com']);
+        $this->actingAs($user);
+
+        $this->put('/admin/account/email', [
+            'current_password' => 'secret-password',
+            'email' => $other->email,
+        ])->assertSessionHasErrors('email');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email' => $user->email,
         ]);
     }
 
@@ -336,7 +445,6 @@ class AdminPanelTest extends TestCase
 
         $this->put('/admin/account', [
             'name' => $user->name,
-            'email' => $user->email,
         ])->assertRedirect()->assertSessionHas('status', 'Nothing updated.');
     }
 

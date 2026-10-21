@@ -24,11 +24,9 @@ class AccountController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
         ]);
 
         $user->name = $validated['name'];
-        $user->email = $validated['email'];
 
         if (! $user->isDirty()) {
             return back()->with('status', 'Nothing updated.');
@@ -37,6 +35,36 @@ class AccountController extends Controller
         $user->save();
 
         return back()->with('status', 'Account updated.');
+    }
+
+    public function editEmail(Request $request): View
+    {
+        return view('admin.account-email', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateEmail(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+        ]);
+
+        if ($validated['email'] === $user->email) {
+            return back()->with('status', 'That is already your email address.');
+        }
+
+        $user->email = $validated['email'];
+        $user->save();
+
+        $request->session()->regenerate();
+
+        return redirect()
+            ->route('admin.account.edit')
+            ->with('status', 'Email updated.');
     }
 
     public function editPassword(): View

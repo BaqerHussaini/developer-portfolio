@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Skill;
 use App\Models\Stat;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
 
 class DashboardController extends Controller
 {
@@ -26,5 +27,10 @@ class DashboardController extends Controller
             'latestMessages' => Message::inbox()->latest()->take(5)->get(),
             'latestProjects' => Project::latest()->take(5)->get(),
         ]);
+    }
+
+    public function heartbeat(): Response
+    {
+        return response()->noContent();
     }
 }

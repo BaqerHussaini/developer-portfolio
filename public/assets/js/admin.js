@@ -1,10 +1,44 @@
 (() => {
     'use strict';
 
+    const root = document.documentElement;
+
+    /* ---------- theme ---------- */
+
+    const themeKey = 'portfolio-admin-theme';
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const themeToggle = document.getElementById('adminThemeToggle');
+
+    const storedTheme = () => {
+        const value = localStorage.getItem(themeKey);
+        return value === 'light' || value === 'dark' ? value : null;
+    };
+
+    const applyTheme = (theme) => {
+        root.dataset.theme = theme;
+        const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+        themeToggle?.setAttribute('aria-label', label);
+        themeToggle?.setAttribute('title', label);
+    };
+
+    applyTheme(storedTheme() || (systemTheme.matches ? 'dark' : 'light'));
+
+    themeToggle?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem(themeKey, next);
+    });
+
+    systemTheme.addEventListener('change', (event) => {
+        if (storedTheme()) return;
+        applyTheme(event.matches ? 'dark' : 'light');
+    });
+
     /* ---------- sidebar toggle ---------- */
 
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('sidebarClose');
     const scrim = document.getElementById('sidebarScrim');
 
     const setSidebar = (open) => {
@@ -14,6 +48,7 @@
     };
 
     menuBtn?.addEventListener('click', () => setSidebar(!sidebar?.classList.contains('open')));
+    closeBtn?.addEventListener('click', () => setSidebar(false));
     scrim?.addEventListener('click', () => setSidebar(false));
     sidebar?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setSidebar(false)));
 
@@ -24,6 +59,26 @@
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') setSidebar(false);
     });
+
+    /* ---------- keep the admin session alive ---------- */
+
+    const heartbeatUrl = document.querySelector('meta[name="admin-heartbeat"]')?.getAttribute('content');
+
+    if (heartbeatUrl) {
+        const ping = () => {
+            fetch(heartbeatUrl, {
+                method: 'GET',
+                credentials: 'same-origin',
+                cache: 'no-store',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            }).catch(() => {});
+        };
+
+        window.setInterval(ping, 4 * 60 * 1000);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') ping();
+        });
+    }
 
     /* ---------- settings tabs ---------- */
 

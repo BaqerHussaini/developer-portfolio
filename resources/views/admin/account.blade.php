@@ -21,8 +21,7 @@
 
                 <label class="field">
                     <span>Email address</span>
-                    <input type="email" name="email" value="{{ old('email', $user->email) }}" autocomplete="email" required>
-                    @error('email')<small class="error-text">{{ $message }}</small>@enderror
+                    <input type="text" class="password-mask" value="{{ $user->maskedEmail() }}" readonly tabindex="-1" aria-label="Email address hidden for privacy">
                 </label>
 
                 <label class="field">
@@ -31,7 +30,8 @@
                 </label>
             </div>
 
-            <div style="margin-top:1.2rem">
+            <div style="margin-top:1.2rem;display:flex;gap:.6rem;flex-wrap:wrap">
+                <a class="btn btn-outline btn-sm" href="{{ route('admin.account.email.edit') }}">Change email</a>
                 <a class="btn btn-outline btn-sm" href="{{ route('admin.account.password.edit') }}">Change password</a>
             </div>
         </div>

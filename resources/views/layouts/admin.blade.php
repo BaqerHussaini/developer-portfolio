@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="admin-heartbeat" content="{{ route('admin.heartbeat') }}">
     <title>@yield('title', 'Admin') &middot; Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    @include('partials.theme-init', ['themeKey' => 'portfolio-admin-theme'])
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
     @include('partials.favicon', ['logoInitials' => \App\Models\Setting::get('logo_initials', 'BH')])
 </head>
 <body>
 <div class="shell">
     <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close navigation">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6 6.4 5Z"/></svg>
+        </button>
+
         <a class="brand" href="{{ route('admin.dashboard') }}">
             <span class="brand-mark">{{ \App\Models\Setting::get('logo_initials', 'BH') }}</span>
             <span class="brand-text">Portfolio CMS</span>
@@ -66,7 +72,12 @@
             <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation"
                     aria-expanded="false" aria-controls="sidebar">&#9776;</button>
             <h1>@yield('title', 'Dashboard')</h1>
-            <span class="who">{{ auth()->user()?->email }}</span>
+            <div class="topbar-actions">
+                <button class="theme-toggle" id="adminThemeToggle" type="button" aria-label="Switch colour theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Zm0 14a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM3 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm16 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM5.6 5.6a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4Zm10.7 10.7a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4Zm2.1-10.7a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0ZM7.7 16.3a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 1 1 1.4 0Z"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13.2A8.5 8.5 0 1 1 10.8 3a7 7 0 0 0 10.2 10.2Z"/></svg>
+                </button>
+            </div>
         </header>
 
         <div class="content">

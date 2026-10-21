@@ -31,9 +31,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        Route::get('heartbeat', [DashboardController::class, 'heartbeat'])->name('heartbeat');
 
         Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
         Route::put('account', [AccountController::class, 'update'])->name('account.update');
+        Route::get('account/email', [AccountController::class, 'editEmail'])->name('account.email.edit');
+        Route::put('account/email', [AccountController::class, 'updateEmail'])->name('account.email.update');
         Route::get('account/password', [AccountController::class, 'editPassword'])->name('account.password.edit');
         Route::put('account/password', [AccountController::class, 'updatePassword'])->name('account.password.update');
 

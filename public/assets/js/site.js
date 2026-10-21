@@ -6,16 +6,33 @@
 
     /* ---------- theme ---------- */
 
-    const stored = localStorage.getItem('portfolio-theme');
-    const preferred = stored || 'dark';
-    root.dataset.theme = preferred;
-
+    const themeKey = 'portfolio-theme';
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
     const themeToggle = document.getElementById('themeToggle');
+
+    const storedTheme = () => {
+        const value = localStorage.getItem(themeKey);
+        return value === 'light' || value === 'dark' ? value : null;
+    };
+
+    const applyTheme = (theme) => {
+        root.dataset.theme = theme;
+        const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+        themeToggle?.setAttribute('aria-label', label);
+        themeToggle?.setAttribute('title', label);
+    };
+
+    applyTheme(storedTheme() || (systemTheme.matches ? 'dark' : 'light'));
 
     themeToggle?.addEventListener('click', () => {
         const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        root.dataset.theme = next;
-        localStorage.setItem('portfolio-theme', next);
+        applyTheme(next);
+        localStorage.setItem(themeKey, next);
+    });
+
+    systemTheme.addEventListener('change', (event) => {
+        if (storedTheme()) return;
+        applyTheme(event.matches ? 'dark' : 'light');
     });
 
     /* ---------- header state ---------- */
