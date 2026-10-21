@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Storage;
 class Images
 {
     /**
+     * The disk uploads are written to (public locally, supabase in production).
+     */
+    public static function disk(): string
+    {
+        return config('filesystems.upload_disk', 'public');
+    }
+
+    /**
      * Store an uploaded image and delete the file it replaces.
      */
     public static function replace(?UploadedFile $file, ?string $currentPath, string $folder): ?string
@@ -16,7 +24,7 @@ class Images
             return $currentPath;
         }
 
-        $path = $file->store($folder, 'public');
+        $path = $file->store($folder, static::disk());
 
         static::delete($currentPath);
 
@@ -25,13 +33,13 @@ class Images
 
     public static function delete(?string $path): void
     {
-        if ($path && Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
+        if ($path && Storage::disk(static::disk())->exists($path)) {
+            Storage::disk(static::disk())->delete($path);
         }
     }
 
     public static function url(?string $path): ?string
     {
-        return $path ? Storage::disk('public')->url($path) : null;
+        return $path ? Storage::disk(static::disk())->url($path) : null;
     }
 }

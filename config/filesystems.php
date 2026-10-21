@@ -17,6 +17,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Upload Disk
+    |--------------------------------------------------------------------------
+    |
+    | The disk used for user-uploaded images (projects and profile photo).
+    | Locally this is the "public" disk; on Render set UPLOAD_DISK=supabase
+    | so uploads are written straight to Supabase Storage.
+    |
+    */
+
+    'upload_disk' => env('UPLOAD_DISK', env('APP_ENV', 'production') === 'production' ? 'supabase' : 'public'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
@@ -43,6 +56,17 @@ return [
             'root' => storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'supabase' => [
+            'driver' => 'supabase',
+            'key' => env('SUPABASE_KEY'),
+            'bucket' => env('SUPABASE_BUCKET', 'portfolio-images'),
+            'endpoint' => rtrim((string) preg_replace('#/(rest|storage)/v1/?$#', '', (string) env('SUPABASE_ENDPOINT')), '/'),
+            'public' => env('SUPABASE_PUBLIC', true),
+            'url_options' => [],
             'throw' => false,
             'report' => false,
         ],
