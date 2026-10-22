@@ -61,14 +61,14 @@ return [
         ],
 
         'supabase' => [
-            'driver' => 'supabase',
-            'key' => env('SUPABASE_KEY'),
-            'bucket' => env('SUPABASE_BUCKET', 'portfolio-images'),
-            'endpoint' => rtrim((string) preg_replace('#/(rest|storage)/v1/?$#', '', (string) env('SUPABASE_ENDPOINT')), '/'),
-            'public' => env('SUPABASE_PUBLIC', true),
-            'url_options' => [],
-            'throw' => false,
-            'report' => false,
+            'driver' => 's3',
+            'key' => env('SUPABASE_ACCESS_KEY_ID'),
+            'secret' => env('SUPABASE_SECRET_ACCESS_KEY'),
+            'region' => env('SUPABASE_REGION', 'us-east-1'),
+            'bucket' => env('SUPABASE_BUCKET'),
+            'url' => env('SUPABASE_PUBLIC_URL'),
+            'endpoint' => env('SUPABASE_ENDPOINT'),
+            'use_path_style_endpoint' => true,
         ],
 
         's3' => [
