@@ -1,6 +1,6 @@
 (function () {
     // Edit this list to change which titles cycle through.
-    var words = ["AI Engineer", "Machine Learning Engineer", "Product Builder"];
+    var words = ["AI Engineer", "ML Engineer", "Product Builder"];
 
     var typeSpeed = 75;      // ms per character while typing
     var deleteSpeed = 45;    // ms per character while deleting
