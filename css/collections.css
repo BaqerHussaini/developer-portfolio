@@ -19,17 +19,36 @@
 
 .categories {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 .categories button {
     padding: 8px 12px;
-    color: var(--color-white);
-    background-color: var(--color-text);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    font-family: inherit;
     font-size: .75rem;
     line-height: 1rem;
-    border: 1px solid var(--color-text);
+    border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.categories button:hover {
+    background-color: var(--color-surface);
+}
+
+.categories button[aria-pressed="true"] {
+    color: var(--color-white);
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.categories button:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
 }
 
 .projects {
@@ -58,6 +77,10 @@
 
 .project:hover {
     transform: scale(1.055);
+}
+
+.project[hidden] {
+    display: none;
 }
 
 .detail {

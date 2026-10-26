@@ -131,12 +131,14 @@
                         <p>Notes on AI engineering, machine learning, and the craft of shipping software.</p>
                     </div>
 
-                    <div class="categories">
-                        <button type="button">All</button>
+                    <div class="categories" data-filter-group data-target="#blog-grid" role="group" aria-label="Filter articles by category">
+                        <button type="button" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" data-filter="ai-engineering" aria-pressed="false">AI Engineering</button>
+                        <button type="button" data-filter="engineering" aria-pressed="false">Engineering</button>
                     </div>
 
-                    <div class="projects">
-                        <a class="project" href="blogs/rag-pipeline.html">
+                    <div class="projects" id="blog-grid">
+                        <a class="project" data-category="ai-engineering" href="blogs/rag-pipeline.html">
                             <img src="../assets/images/cover.webp" alt="Abstract illustration for a retrieval-augmented generation article" loading="lazy" decoding="async">
 
                             <div class="detail">
@@ -150,7 +152,7 @@
                             </div>
                         </a>
 
-                        <a class="project" href="blogs/apis-from-zero.html">
+                        <a class="project" data-category="engineering" href="blogs/apis-from-zero.html">
                             <img src="../assets/images/apis-from-zero.webp" alt="Illustration of APIs and network protocols" loading="lazy" decoding="async">
 
                             <div class="detail">
@@ -182,5 +184,6 @@
 
     <script src="../js/mobile-menu.js" defer></script>
     <script src="../js/typewriter.js" defer></script>
+    <script src="../js/categories.js" defer></script>
 </body>
 </html>

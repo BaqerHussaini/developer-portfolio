@@ -131,12 +131,14 @@
                         <p>Selected work across machine learning, LLM applications, and full-stack engineering.</p>
                     </div>
 
-                    <div class="categories">
-                        <button type="button">All</button>
+                    <div class="categories" data-filter-group data-target="#project-grid" role="group" aria-label="Filter projects by category">
+                        <button type="button" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" data-filter="machine-learning" aria-pressed="false">Machine Learning</button>
+                        <button type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
                     </div>
 
-                    <div class="projects">
-                        <article class="project">
+                    <div class="projects" id="project-grid">
+                        <article class="project" data-category="machine-learning">
                             <a class="project-link" href="projects/titanic-survival.html" aria-label="View Titanic Survival Prediction project">
                             <div class="detail">
                                 <img src="../assets/images/titanic-survival.jpg" alt="Titanic Survival Prediction" loading="lazy" decoding="async">
@@ -165,7 +167,7 @@
                             </div>
                         </article>
 
-                        <article class="project">
+                        <article class="project" data-category="machine-learning">
                             <a class="project-link" href="projects/heart-disease.html" aria-label="View Heart Disease Prediction project">
                             <div class="detail">
                                 <img src="../assets/images/heart-disease.png" alt="Heart disease prediction" loading="lazy" decoding="async">
@@ -194,7 +196,7 @@
                             </div>
                         </article>
 
-                        <article class="project">
+                        <article class="project" data-category="frontend">
                             <a class="project-link" href="projects/portfolio-template.html" aria-label="View Portfolio Template project">
                             <div class="detail">
                                 <img src="../assets/images/portfolio-template.png" alt="Portfolio template" loading="lazy" decoding="async">
@@ -223,7 +225,7 @@
                             </div>
                         </article>
 
-                        <article class="project">
+                        <article class="project" data-category="machine-learning">
                             <a class="project-link" href="projects/house-price.html" aria-label="View House Price Prediction project">
                             <div class="detail">
                                 <img src="../assets/images/house-price.jpg" alt="House price prediction" decoding="async">
@@ -269,5 +271,6 @@
 
     <script src="../js/mobile-menu.js" defer></script>
     <script src="../js/typewriter.js" defer></script>
+    <script src="../js/categories.js" defer></script>
 </body>
 </html>
