@@ -1,7 +1,5 @@
 /* ================= ABOUT PAGE ================= */
 .content {
-    display: flex;
-    flex-direction: column;
     padding: 32px 32px;
     margin: 0 16px;
     gap: 20px;

@@ -1,10 +1,4 @@
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.main-content p {
+.content p {
     font-size: 0.75rem;
     line-height: 1rem;
 }
@@ -45,14 +39,13 @@
 .project {
     display: flex;
     flex-direction: column;
-    max-height: 340px;
     overflow: hidden;
     justify-content: space-between;
     background-color: #b8b8bc38;
     border-radius: 10px;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease-in-out; 
+    transition: transform 0.2s ease-in-out;
     box-shadow:
     0 0px 2px 0 rgba(0, 0, 0, 0),
     0 0px 7px -3px rgba(0, 0, 0, 0.516),
@@ -62,37 +55,12 @@
 }
 
 .project:hover {
-    transform: scale(1.055); 
-}
-
-.project img {
-    max-width: 100%;
-    max-height: 210px;
-    height: 100%;
-    object-fit: cover;
-    margin: 8px;
-    border-radius: 5px;
+    transform: scale(1.055);
 }
 
 .detail {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 0 24px 16px 24px;
-}
-
-.detail h2 {
-    font-size: inherit;
-    line-height: 1.25;
-    font-weight: 600;
-    justify-content: space-between;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    overflow: hidden;
-    flex-shrink: 0;
-
 }
 
 .detail p {
@@ -103,30 +71,11 @@
     line-clamp: 2;
     overflow: hidden;
     line-height: 1.25;
-    flex-shrink: 0; 
-}
-
-.type-date {
-    display: flex;
-    flex-direction: row;
-    margin: 8px 0 6px 0;
-    justify-content: space-between;
-}
-
-.type {
-    padding: 4px 8px;
-    color: #ffffff;
-    background-color: #1a1a1a;
-    border-radius: 6px;
+    flex-shrink: 0;
 }
 
 
-/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 767px){
-    .projects {
-        gap: 12px;;
-    }
-
     .title h1 {
         font-size: 1.5rem;
         line-height: 2rem;
@@ -139,11 +88,11 @@
     }
 
     .projects {
-        gap: 12px;;
+        gap: 12px;
     }
 
     .project:hover {
-        transform: scale(1.04); 
+        transform: scale(1.04);
     }
 }
 
@@ -153,6 +102,6 @@
     }
 
     .project:hover {
-        transform: scale(1.02); 
+        transform: scale(1.02);
     }
 }

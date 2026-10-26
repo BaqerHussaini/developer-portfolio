@@ -29,17 +29,3 @@
         opacity: 1;
     }
 }
-
-/* Visually hidden but still readable by screen readers — used so assistive
-   tech announces a stable title instead of the animated, changing text. */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}

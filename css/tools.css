@@ -1,0 +1,40 @@
+.tool-card {
+    width: 100%;
+}
+
+.tool-card:hover {
+    border-color: #85858fb4;
+    transform: translateY(-5px) translateX(10px);
+    box-shadow: 0px 10px 40px 0px #4a4aa444;
+}
+
+.tool-card h3 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.tool-card p {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: #1a1a1ab7;
+}
+
+@media (max-width: 679px) {
+    .tool-card {
+        padding: 6px 8px;
+    }
+
+    .tool-card img {
+        margin-top: 6px;
+    }
+
+    .tool-card h3 {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .tool-card p {
+        font-size: .75rem;
+        line-height: 1rem;
+    }
+}

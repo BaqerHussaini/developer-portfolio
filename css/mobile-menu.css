@@ -140,13 +140,3 @@
         overflow: hidden;
     }
 }
-
-/* ---- Icons next to nav items and social links (all breakpoints) ---- */
-.nav-icon {
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-.social-link .nav-icon {
-    margin-right: 10px;
-}

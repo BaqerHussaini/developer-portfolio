@@ -1,0 +1,48 @@
+.content {
+    gap: 20px;
+}
+
+.project {
+    max-height: 340px;
+}
+
+.project img {
+    max-width: 100%;
+    max-height: 210px;
+    height: 100%;
+    object-fit: cover;
+    margin: 8px;
+    border-radius: 5px;
+}
+
+.detail {
+    height: 100%;
+    padding: 0 24px 16px 24px;
+}
+
+.detail h2 {
+    font-size: inherit;
+    line-height: 1.25;
+    font-weight: 600;
+    justify-content: space-between;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.type-date {
+    display: flex;
+    flex-direction: row;
+    margin: 8px 0 6px 0;
+    justify-content: space-between;
+}
+
+.type {
+    padding: 4px 8px;
+    color: #ffffff;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+}

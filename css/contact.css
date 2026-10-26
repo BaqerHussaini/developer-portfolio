@@ -1,0 +1,20 @@
+.app-card:hover {
+    border-color: #85858f;
+    transform: scale(1.055);
+    box-shadow: 0px 2px 20px 0px #4a4aa444;
+}
+
+.app-card h3 {
+    font-size: 1.2rem;
+    margin: auto 0px;
+}
+
+@media (max-width: 679px) {
+    .app-card {
+        padding: 8px 8px 12px;
+    }
+
+    .app-card h3 {
+        font-size: 1rem;
+    }
+}
