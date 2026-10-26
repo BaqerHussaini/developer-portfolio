@@ -15,7 +15,7 @@
 }
 
 .project-link:focus-visible {
-    outline: 2px solid #1a1a1a;
+    outline: 2px solid var(--color-text);
     outline-offset: 3px;
     border-radius: 5px;
 }
@@ -79,23 +79,23 @@
     padding: 0px 12px;
     height: 1.5rem;
     align-items: center;
-    color: #ffffff;
-    background-color: #1a1a1a;
+    color: var(--color-white);
+    background-color: var(--color-text);
     text-decoration: none;
     font-size: 0.75rem;
     line-height: 1rem;
     font-weight: 500;
-    border: 1px solid #1a1a1a;
-    border-radius: 6px;
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-sm);
 }
 
 .source:hover {
-    background-color: #cacac754;
-    color: #1a1a1a;
+    background-color: var(--color-hover);
+    color: var(--color-text);
 }
 
 .source:focus-visible {
-    outline: 2px solid #1a1a1a;
+    outline: 2px solid var(--color-text);
     outline-offset: 2px;
 }
 
@@ -103,8 +103,8 @@
     display: flex;
     padding: 2px 8px;
     align-items: center;
-    background-color: rgba(92, 235, 168, 0.463);
-    border-radius: 9999px;
+    background-color: var(--color-success);
+    border-radius: var(--radius-pill);
 }
 
 .skills {
@@ -117,10 +117,10 @@
 
 .skills p {
     padding: 0.125rem 0.5rem;
-    background-color: #fdfbfb;
+    background-color: var(--color-bg);
     white-space: nowrap;
     overflow: hidden;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
 }
 
 

@@ -1,3 +1,5 @@
+/* Cards shared by the contact and tools pages. */
+
 .title {
     font-size: 3rem;
     line-height: 1;
@@ -22,12 +24,12 @@
     display: flex;
     gap: 10px;
     padding: 12px 12px;
-    border: 1px solid #b0b0a88f;
-    border-radius: 8px;
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius-md);
     text-decoration: none;
-    color: #1a1a1a;
-    background: linear-gradient(90deg, #a5a5ab44, #efeff471, #a5a5ab44);
-    box-shadow: 0px 20px 30px 3px #a5a5ab44;
+    color: var(--color-text);
+    background: var(--color-card-gradient);
+    box-shadow: 0px 20px 30px 3px var(--color-card-shadow);
     transition: transform 0.2s ease-in-out;
 }
 
@@ -38,11 +40,11 @@
 
 .app-card img,
 .tool-card img {
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     width: 44px;
     height: 44px;
     padding: 5px;
-    background-color: white;
+    background-color: var(--color-white);
 }
 
 
@@ -82,5 +84,69 @@
     .tool-card img {
         width: 35px;
         height: 35px;
+    }
+}
+
+
+.app-card:hover {
+    border-color: var(--color-card-border-hover);
+    transform: scale(1.055);
+    box-shadow: 0px 2px 20px 0px var(--color-card-shadow-hover);
+}
+
+.app-card h3 {
+    font-size: 1.2rem;
+    margin: auto 0px;
+}
+
+@media (max-width: 679px) {
+    .app-card {
+        padding: 8px 8px 12px;
+    }
+
+    .app-card h3 {
+        font-size: 1rem;
+    }
+}
+
+
+.tool-card {
+    width: 100%;
+}
+
+.tool-card:hover {
+    border-color: var(--color-card-border-hover-strong);
+    transform: translateY(-5px) translateX(10px);
+    box-shadow: 0px 10px 40px 0px var(--color-card-shadow-hover);
+}
+
+.tool-card h3 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.tool-card p {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: #1a1a1ab7;
+}
+
+@media (max-width: 679px) {
+    .tool-card {
+        padding: 6px 8px;
+    }
+
+    .tool-card img {
+        margin-top: 6px;
+    }
+
+    .tool-card h3 {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .tool-card p {
+        font-size: .75rem;
+        line-height: 1rem;
     }
 }

@@ -5,7 +5,7 @@
 }
 
 .content h3 {
-    color: #737373;
+    color: var(--color-text-muted);
 }
 
 .content p {
@@ -27,7 +27,7 @@
 
 .title p {
     margin-top: 8px;
-    color: #404040;
+    color: var(--color-text-body);
     font-size: 1rem;
     line-height: 1.5rem;
 }
@@ -71,7 +71,7 @@
     height: 40px;
     flex-shrink: 0;
     background-color: rgb(232, 229, 229);
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
     z-index: 2;
 }
 
@@ -82,7 +82,7 @@
     height: 12px;
     background-color: #7e7e8284;
     border: 1px solid #7e7e828e;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
 }
 
 .timeline h3 {
@@ -101,7 +101,7 @@
 }
 
 .description p {
-    color: #6b7280;
+    color: var(--color-text-gray);
 }
 
 .description ul {
@@ -109,7 +109,7 @@
     flex-direction: column;
     gap: 8px;
     list-style: none;
-    color: #374151;
+    color: var(--color-text-slate);
     font-size: 0.875rem;
     line-height: 1.25rem;
 }
@@ -137,9 +137,9 @@
 .position p {
     display: inline-block;
     padding: 0px 5px;
-    background-color: white;
+    background-color: var(--color-white);
     border: 1px solid rgba(0, 0, 0, 0.149);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
 }
 
 .education {
@@ -149,7 +149,7 @@
 
 .education p {
     margin-top: 4px;
-    color: #4b5563;
+    color: var(--color-text-slate-soft);
 }
 
 .resume {

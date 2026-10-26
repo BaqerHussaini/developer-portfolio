@@ -1,0 +1,512 @@
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
+:root {
+    --font-sans: 'Inter', sans-serif;
+
+    --color-bg: #fdfbfb;
+    --color-text: #1a1a1a;
+    --color-text-soft: #524b4b;
+    --color-text-faint: #606063;
+    --color-text-subtle: #8f8f98;
+    --color-text-muted: #737373;
+    --color-text-body: #404040;
+    --color-text-gray: #6b7280;
+    --color-text-slate: #374151;
+    --color-text-slate-soft: #4b5563;
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    --color-surface: #efeff4;
+    --color-surface-soft: #f2f2f7;
+    --color-sidebar: #efeff4a3;
+    --color-avatar-bg: #e0e0e0;
+    --color-text-topbar: #6b6b70;
+    --color-hover: #cacac754;
+
+    --color-border: #1a1a1a;
+    --color-border-soft: #d7d7e2;
+    --color-card-border: #b0b0a88f;
+    --color-card-border-hover: #85858f;
+    --color-card-border-hover-strong: #85858fb4;
+    --color-card-shadow: #a5a5ab44;
+    --color-card-shadow-hover: #4a4aa444;
+    --color-card-gradient: linear-gradient(90deg, #a5a5ab44, #efeff471, #a5a5ab44);
+    --color-project-bg: #b8b8bc38;
+    --color-code: #db2777;
+    --color-code-bg: #c0b6b645;
+    --color-overlay: rgba(0, 0, 0, 0.45);
+    --color-success: rgba(92, 235, 168, 0.463);
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-pill: 9999px;
+}
+
+/* GLOBAL SETTINGS */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+.container{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* GLOBAL SIDEBAR */
+.sidebar{
+    width: 240px;
+    padding: 50px 16px;
+    background-color: var(--color-sidebar);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: auto;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+}
+
+/* Profile Name and Picture */
+.profile{
+    margin-top: 16px;
+    padding: 0px 8px;
+    display: flex;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-avatar-bg);
+    object-fit: cover;
+}
+
+.profile-text {
+    margin-left: 12px;
+}
+
+.profile-text h2 {
+    font-size: 1.05rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+}
+
+.profile-text p {
+    font-size: 0.90rem;
+    line-height: 1.25rem;
+    margin-top: 4px;
+}
+
+/* Navigation Bar */
+.nav-menu{
+    margin-top: 16px;
+    padding: 18px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-item{
+    text-decoration: none;
+    color: var(--color-text);
+    padding: 9px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.90rem;
+    font-weight: 400;
+    gap: 7px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-item.active{
+    background-color: var(--color-text);
+    color: var(--color-white);
+    border-color: var(--color-border);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.nav-item:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.nav-item:focus-visible,
+.social-link:focus-visible,
+.reach-out:focus-visible,
+.template:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+/* Social Navigation */
+.connect-section {
+    margin-top: 20px;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.connect-section p {
+    font-size: 0.90rem;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+    font-weight: 500;
+}
+
+.social-link {
+    padding-left: 15px;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 0.90rem;
+    gap: 7px;
+    display: flex;
+    align-items: center;
+}
+
+.social-link:hover {
+    text-decoration: underline;
+}
+
+
+/* MAIN CONTENT AREA */
+.main-menu {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content */
+.main-content {
+    margin: 0 auto;
+    padding: 128px 48px;
+    max-width: 896px;
+    width: 100%;
+}
+
+.content p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.main-content > .content:not(.project-detail) {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Footer */
+.main-footer {
+    padding: 20px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+}
+
+.main-footer-info {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.90rem;
+    color: var(--color-text-soft);
+    justify-content: space-between;
+    width: 100%;
+}
+
+.reach-out , .footer-spacer{
+    width: 110px;
+    display: block;
+}
+
+.reach-out {
+    text-decoration: none;
+    color: var(--color-text-soft);
+}
+
+.reach-out:hover {
+    text-decoration: underline;
+}
+
+.made-by{
+    text-align: center;
+    flex: 1;
+}
+
+.template {
+    margin-top: 8px;
+    font-size: 0.70rem;
+    text-decoration: none;
+    color: var(--color-text-faint);
+}
+
+.template:hover {
+    text-decoration: underline;
+}
+
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1023px){
+    .main-content {
+        padding: 128px 24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-content {
+        padding: 24px 24px;
+    }
+}
+
+@media (max-width: 679px) {
+    .main-content {
+        padding: 24px 24px;
+    }
+
+    .content p {
+        font-size: 0.875rem;
+        line-height: 1.4rem;
+    }
+
+    .main-footer-info {
+        display: flex;
+        font-size: 0.70rem;
+        flex-direction: row;
+        text-align: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .reach-out, .footer-spacer {
+        display: inline-flex;
+    }
+}
+
+@media (max-width: 639px) {
+    .main-content {
+        padding: 24px 16px 16px 16px;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+
+/* ================= MOBILE TOP BAR + HAMBURGER MENU =================
+   Hidden by default (desktop). Activated at the same breakpoint the
+   site already uses for stacking (720px). Loaded after style.css and
+   home-menu.css so these rules win the cascade at equal specificity. */
+
+.mobile-topbar,
+.menu-toggle,
+.sidebar-close,
+.sidebar-overlay {
+    display: none;
+}
+
+.sidebar-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    padding: 6px;
+    border-radius: 50%;
+}
+
+.sidebar-close:hover {
+    background-color: var(--color-hover);
+}
+
+@media (max-width: 679px) {
+
+    /* The topbar and overlay are now inside .container (display:flex, row).
+       Since the sidebar is position:fixed here and drops out of flow, without
+       this the topbar would sit beside .main-menu instead of above it. */
+    .container {
+        flex-direction: column;
+    }
+
+    /* ---- Top bar shown in place of the full sidebar ---- */
+    .mobile-topbar {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        background-color: var(--color-surface-soft);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.157);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+    }
+
+    .mobile-topbar-profile {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        padding-left: 8px;
+    }
+
+    .avatar-sm {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mobile-topbar .profile-text h2 {
+        font-size: 0.95rem;
+        line-height: 1.2rem;
+    }
+
+    .mobile-topbar .profile-text p {
+        font-size: 0.8rem;
+        line-height: 1.1rem;
+        margin-top: 2px;
+        color: var(--color-text-topbar);
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--color-text);
+        padding: 8px;
+        border-radius: var(--radius-sm);
+    }
+
+    .menu-toggle:hover {
+        background-color: var(--color-hover);
+    }
+
+    /* ---- Sidebar becomes an off-canvas drawer ---- */
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        width: 82% !important;
+        max-width: 255px;
+        background-color: var(--color-surface) !important;
+        transform: translateX(-100%);
+        transition: transform 0.28s ease;
+        z-index: 1000;
+        padding-top: 56px;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-close {
+        display: inline-flex;
+    }
+
+    /* Hide the sidebar's own profile block since the top bar shows it,
+       unless the drawer is open, where it re-appears for a clean header */
+    .sidebar .profile {
+        margin-top: 0;
+    }
+
+    /* ---- Dimmed backdrop behind the open drawer ---- */
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background-color: var(--color-overlay);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 999;
+    }
+
+    .sidebar-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Prevent background scroll while the drawer is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+
+
+/* ================= TYPEWRITER ROLE TEXT ================= */
+
+.role-typewriter {
+    white-space: nowrap;
+}
+
+.role-typewriter-text {
+    display: inline;
+}
+
+.role-typewriter-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    margin-left: 2px;
+    background-color: currentColor;
+    vertical-align: text-bottom;
+    animation: role-cursor-blink 0.9s steps(1) infinite;
+}
+
+@keyframes role-cursor-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .role-typewriter-cursor {
+        animation: none;
+        opacity: 1;
+    }
+}

@@ -56,13 +56,13 @@
     border-style: solid;
     border-width: 1px;
     border-color: #1a1a1a2d;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
 }
 
 .content img {
     margin-top: 15px;
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
 }
 
 .description {
@@ -97,23 +97,23 @@
     display: inline-table;
     margin-top: 8px;
     width: 100%;
-    overflow: hidden;   
-    text-align: left; 
+    overflow: hidden;
+    text-align: left;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid #d7d7e2;
-    border-radius: 10px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
 }
 
 .description table th {
     padding: 6px 12px;
     font-weight: 600;
-    background-color: #efeff4;
+    background-color: var(--color-surface);
 }
 
 .description table td {
     padding: 6px 12px;
-    border-top: 1px solid #d7d7e2;
+    border-top: 1px solid var(--color-border-soft);
 }
 
 .description strong {
@@ -122,8 +122,8 @@
 
 .description code {
     padding: 0 4px;
-    color: #db2777;
-    background-color: #c0b6b645;
+    color: var(--color-code);
+    background-color: var(--color-code-bg);
     border-radius: 4px;
 }
 
@@ -137,8 +137,8 @@
     padding: 2px 8px;
     font-size: 0.75rem;
     line-height: 1rem;
-    color: white;
-    background-color: #1a1a1a;
+    color: var(--color-white);
+    background-color: var(--color-text);
     border-radius: 16px;
 }
 
@@ -154,19 +154,19 @@
     padding: 8px 16px;
     color: inherit;
     text-decoration: none;
-    background-color: white;
+    background-color: var(--color-white);
     border: 1px solid #1a1a1a68;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
 }
 
 .links a.active {
-    color: white;
-    background-color: black;
+    color: var(--color-white);
+    background-color: var(--color-black);
 }
 
 .links a:hover {
-    background-color: #cacac754;
-    color: #1a1a1a;
+    background-color: var(--color-hover);
+    color: var(--color-text);
 }
 
 
@@ -181,7 +181,7 @@
     .content {
         margin: 0;
     }
-    
+
     .description h2 {
         font-size: 1rem;
         line-height: 1.5rem;
