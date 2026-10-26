@@ -1,7 +1,6 @@
 (function () {
     var STORAGE_KEY = 'portfolio-theme';
     var root = document.documentElement;
-    var media = window.matchMedia('(prefers-color-scheme: dark)');
 
     function readStoredTheme() {
         try {
@@ -41,7 +40,7 @@
         updateControls(theme);
     }
 
-    applyTheme(readStoredTheme() || (media.matches ? 'dark' : 'light'), false);
+    applyTheme(readStoredTheme() || 'light', false);
 
     document.addEventListener('click', function (event) {
         var button = event.target.closest && event.target.closest('[data-theme-toggle]');
@@ -64,16 +63,4 @@
     window.requestAnimationFrame(syncControls);
     document.addEventListener('readystatechange', syncControls);
     document.addEventListener('DOMContentLoaded', syncControls);
-
-    function handleSystemThemeChange(event) {
-        if (!readStoredTheme()) {
-            applyTheme(event.matches ? 'dark' : 'light', false);
-        }
-    }
-
-    if (media.addEventListener) {
-        media.addEventListener('change', handleSystemThemeChange);
-    } else {
-        media.addListener(handleSystemThemeChange);
-    }
 })();
