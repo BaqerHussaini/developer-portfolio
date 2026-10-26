@@ -10,7 +10,7 @@
 }
 
 .content .subtitle {
-    color: rgb(75 85 99);
+    color: var(--color-text-slate-soft);
 }
 
 .description {
@@ -223,9 +223,9 @@
 
 .quick-contact-email {
     padding: 10px 16px;
-    color: var(--color-white);
-    background-color: var(--color-text);
-    border: 1px solid var(--color-text);
+    color: var(--color-inverse-text);
+    background-color: var(--color-inverse-bg);
+    border: 1px solid var(--color-inverse-bg);
     border-radius: var(--radius-pill);
     font-size: 0.8rem;
     font-weight: 500;

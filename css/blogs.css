@@ -42,7 +42,7 @@
 
 .type {
     padding: 4px 8px;
-    color: var(--color-white);
-    background-color: var(--color-text);
+    color: var(--color-inverse-text);
+    background-color: var(--color-inverse-bg);
     border-radius: var(--radius-sm);
 }

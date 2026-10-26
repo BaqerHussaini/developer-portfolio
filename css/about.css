@@ -16,7 +16,7 @@
 }
 
 .backstory .subtitle {
-    color: rgb(75 85 99);
+    color: var(--color-text-slate-soft);
 }
 
 .description {

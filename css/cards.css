@@ -128,7 +128,7 @@
 .tool-card p {
     font-size: .875rem;
     line-height: 1.25rem;
-    color: #1a1a1ab7;
+    color: var(--color-text-soft);
 }
 
 @media (max-width: 679px) {

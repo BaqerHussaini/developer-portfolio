@@ -26,7 +26,7 @@
 .categories button {
     padding: 8px 12px;
     color: var(--color-text);
-    background-color: var(--color-white);
+    background-color: var(--color-control-bg);
     font-family: inherit;
     font-size: .75rem;
     line-height: 1rem;
@@ -41,9 +41,9 @@
 }
 
 .categories button[aria-pressed="true"] {
-    color: var(--color-white);
-    background-color: var(--color-text);
-    border-color: var(--color-text);
+    color: var(--color-inverse-text);
+    background-color: var(--color-inverse-bg);
+    border-color: var(--color-inverse-bg);
 }
 
 .categories button:focus-visible {

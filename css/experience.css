@@ -70,7 +70,7 @@
     width: 40px;
     height: 40px;
     flex-shrink: 0;
-    background-color: rgb(232, 229, 229);
+    background-color: var(--color-surface);
     border-radius: var(--radius-pill);
     z-index: 2;
 }
@@ -80,8 +80,8 @@
     margin: auto;
     width: 12px;
     height: 12px;
-    background-color: #7e7e8284;
-    border: 1px solid #7e7e828e;
+    background-color: var(--color-text-subtle);
+    border: 1px solid var(--color-text-subtle);
     border-radius: var(--radius-pill);
 }
 
@@ -123,7 +123,7 @@
     content: "•";
     margin-right: 8px;
     flex-shrink: 0;
-    color: #37415180;
+    color: var(--color-text-subtle);
     font-size: 0.75rem;
 }
 
@@ -137,8 +137,8 @@
 .position p {
     display: inline-block;
     padding: 0px 5px;
-    background-color: var(--color-white);
-    border: 1px solid rgba(0, 0, 0, 0.149);
+    background-color: var(--color-control-bg);
+    border: 1px solid var(--color-border-soft);
     border-radius: var(--radius-sm);
 }
 

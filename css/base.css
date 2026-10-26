@@ -17,6 +17,10 @@
     --color-text-slate-soft: #4b5563;
     --color-white: #ffffff;
     --color-black: #000000;
+    --color-inverse-bg: #1a1a1a;
+    --color-inverse-text: #ffffff;
+    --color-control-bg: #ffffff;
+    --color-text-prose: #1a1a1a6a;
 
     --color-surface: #efeff4;
     --color-surface-soft: #f2f2f7;
@@ -43,6 +47,50 @@
     --radius-md: 8px;
     --radius-lg: 10px;
     --radius-pill: 9999px;
+}
+
+:root {
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-bg: #111113;
+    --color-text: #f1efec;
+    --color-text-soft: #c9c3bd;
+    --color-text-faint: #a7a19b;
+    --color-text-subtle: #8f8983;
+    --color-text-muted: #aaa49e;
+    --color-text-body: #d2ccc6;
+    --color-text-gray: #b3ada7;
+    --color-text-slate: #d6d0ca;
+    --color-text-slate-soft: #bbb5af;
+    --color-inverse-bg: #f1efec;
+    --color-inverse-text: #161618;
+    --color-control-bg: #232327;
+    --color-text-prose: #cfc9c3;
+
+    --color-surface: #232327;
+    --color-surface-soft: #19191c;
+    --color-sidebar: #18181bcc;
+    --color-avatar-bg: #303036;
+    --color-text-topbar: #b7b1ab;
+    --color-hover: #ffffff12;
+
+    --color-border: #38383f;
+    --color-border-soft: #34343b;
+    --color-card-border: #ffffff1f;
+    --color-card-border-hover: #ffffff42;
+    --color-card-border-hover-strong: #ffffff5c;
+    --color-card-shadow: #00000066;
+    --color-card-shadow-hover: #00000099;
+    --color-card-gradient: linear-gradient(90deg, #ffffff0a, #ffffff03, #ffffff0a);
+    --color-project-bg: #ffffff08;
+    --color-code: #f472b6;
+    --color-code-bg: #f472b626;
+    --color-overlay: rgba(0, 0, 0, 0.7);
+    --color-success: rgba(92, 235, 168, 0.2);
 }
 
 /* GLOBAL SETTINGS */
@@ -77,6 +125,7 @@ body {
     width: 240px;
     padding: 50px 16px;
     background-color: var(--color-sidebar);
+    border-right: 1px solid var(--color-border-soft);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -139,9 +188,9 @@ body {
 }
 
 .nav-item.active{
-    background-color: var(--color-text);
-    color: var(--color-white);
-    border-color: var(--color-border);
+    background-color: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+    border-color: var(--color-inverse-bg);
     border-style: solid;
     border-width: 1px;
 }
@@ -149,6 +198,51 @@ body {
 .nav-item:hover {
     background-color: var(--color-hover);
     color: var(--color-text);
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    margin-top: auto;
+    padding: 9px 14px;
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.90rem;
+    line-height: 1.25rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background-color: var(--color-hover);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+.theme-toggle svg {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+}
+
+.theme-icon-sun {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] .theme-icon-moon {
+    display: none;
 }
 
 .nav-item:focus-visible,
@@ -342,9 +436,44 @@ body {
 
 .mobile-topbar,
 .menu-toggle,
+.mobile-theme-toggle,
 .sidebar-close,
 .sidebar-overlay {
     display: none;
+}
+
+.mobile-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mobile-theme-toggle {
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    color: var(--color-text);
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.mobile-theme-toggle:hover {
+    background-color: var(--color-hover);
+}
+
+.mobile-theme-toggle:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+.mobile-theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 .sidebar-close {
@@ -420,6 +549,14 @@ body {
         color: var(--color-text);
         padding: 8px;
         border-radius: var(--radius-sm);
+    }
+
+    .mobile-theme-toggle {
+        display: inline-flex;
+    }
+
+    .sidebar .theme-toggle {
+        display: none;
     }
 
     .menu-toggle:hover {
